@@ -17,7 +17,7 @@ const findOne = async (id: string) => {
 	return place;
 };
 
-const findAll = async (filter: FilterDto | {}) => {
+const findAll = (filter: FilterDto | {}) => {
 	return Place.find(filter).populate('stage');
 };
 
