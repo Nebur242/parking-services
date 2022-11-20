@@ -9,7 +9,7 @@ const createPlace = (createPlaceDto: CreatePlaceDto) => {
 };
 
 const findOne = async (id: string) => {
-	const place = await Place.findById(id);
+	const place = await Place.findById(id).populate('stage');
 	if (!place) throw new ApiError(httpStatus.NOT_FOUND, 'Place not found');
 	return place;
 };
