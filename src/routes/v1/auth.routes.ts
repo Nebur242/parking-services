@@ -6,7 +6,7 @@ import { auth } from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.post('/', auth(), authController.authenticate);
+router.get('/', auth(), authController.authenticate);
 router.post(
 	'/register',
 	validate(validators.register),
