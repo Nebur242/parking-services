@@ -10,29 +10,23 @@ interface IStageParam {
 }
 
 const create = catchAsync(
-	async (
-		req: Request<never, never, CreateStageDto, never>,
-		res: Response
-	) => {
-		const stage = await stagesService.createStage(req.body);
-		res.status(httpStatus.CREATED).send(stage);
+	(req: Request<never, never, CreateStageDto, never>, res: Response) => {
+		return stagesService.createStage(req.body);
 	}
 );
 
 const findAll = catchAsync(async (_req: Request, res: Response) => {
-	const stages = await stagesService.findAll();
-	res.status(httpStatus.OK).send(stages);
+	return stagesService.findAll();
 });
 
 const findOne = catchAsync(
-	async (req: Request<IStageParam, never, never, never>, res: Response) => {
-		const stage = await stagesService.findOne(req.params.id);
-		res.status(httpStatus.OK).send(stage);
+	(req: Request<IStageParam, never, never, never>, res: Response) => {
+		return stagesService.findOne(req.params.id);
 	}
 );
 
 const update = catchAsync(
-	async (
+	(
 		req: Request<IStageParam, never, Omit<UpdateStageDto, 'id'>, never>,
 		res: Response
 	) => {
@@ -40,15 +34,13 @@ const update = catchAsync(
 			id: req.params.id,
 			...req.body,
 		};
-		const stage = await stagesService.updateStage(dto);
-		res.status(httpStatus.OK).send(stage);
+		return stagesService.updateStage(dto);
 	}
 );
 
 const deleteStage = catchAsync(
-	async (req: Request<IStageParam, never, never, never>, res: Response) => {
-		const stage = await stagesService.deleteStage(req.params.id);
-		res.status(httpStatus.OK).send(stage);
+	(req: Request<IStageParam, never, never, never>, res: Response) => {
+		return stagesService.deleteStage(req.params.id);
 	}
 );
 

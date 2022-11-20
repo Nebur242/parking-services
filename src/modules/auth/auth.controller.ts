@@ -15,7 +15,7 @@ const register = catchAsync(
 	) => {
 		const user = await usersService.create(req.body);
 		const tokens = await tokensService.generateAuthTokens(user);
-		res.status(httpStatus.CREATED).send({ user, tokens });
+		return { user, tokens };
 	}
 );
 
@@ -30,13 +30,12 @@ const login = catchAsync(
 			password
 		);
 		const tokens = await tokensService.generateAuthTokens(user);
-		res.send({ user, tokens });
+		return { user, tokens };
 	}
 );
 
 const logout = catchAsync(async (req: Request, res: Response) => {
-	await authService.logout(req.body.refreshToken);
-	res.status(httpStatus.NO_CONTENT).send();
+	return authService.logout(req.body.refreshToken);
 });
 
 const refreshTokens = catchAsync(
@@ -45,7 +44,7 @@ const refreshTokens = catchAsync(
 		res: Response
 	) => {
 		const tokens = await authService.refreshAuth(req.body.refreshToken);
-		res.send({ ...tokens });
+		return { ...tokens };
 	}
 );
 

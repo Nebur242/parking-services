@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { catchAsync } from '../../utils/catchAsync';
 import { CreatePlaceDto } from './dto/create-place.dto';
+import { FilterDto } from './dto/filter.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
 import placesService from './places.service';
 
@@ -10,45 +11,39 @@ interface IPlaceParam {
 }
 
 const create = catchAsync(
-	async (
-		req: Request<never, never, CreatePlaceDto, never>,
-		res: Response
-	) => {
-		const place = await placesService.createPlace(req.body);
-		res.status(httpStatus.CREATED).send(place);
+	(req: Request<never, never, CreatePlaceDto, never>, res: Response) => {
+		return placesService.createPlace(req.body);
 	}
 );
 
-const findAll = catchAsync(async (_req: Request, res: Response) => {
-	const places = await placesService.findAll();
-	res.status(httpStatus.OK).send(places);
-});
+const findAll = catchAsync(
+	(req: Request<never, never, never, FilterDto, never>, res: Response) => {
+		return placesService.findAll(req.query || {});
+	}
+);
 
 const findOne = catchAsync(
-	async (req: Request<IPlaceParam, never, never, never>, res: Response) => {
-		const place = await placesService.findOne(req.params.id);
-		res.status(httpStatus.OK).send(place);
+	(req: Request<IPlaceParam, never, never, never>, res: Response) => {
+		return placesService.findOne(req.params.id);
 	}
 );
 
 const update = catchAsync(
 	async (
 		req: Request<IPlaceParam, never, Omit<UpdatePlaceDto, 'id'>, never>,
-		res: Response
+		_res: Response
 	) => {
 		const dto: UpdatePlaceDto = {
 			id: req.params.id,
 			...req.body,
 		};
-		const place = await placesService.updatePlace(dto);
-		res.status(httpStatus.OK).send(place);
+		return placesService.updatePlace(dto);
 	}
 );
 
 const deletePlace = catchAsync(
-	async (req: Request<IPlaceParam, never, never, never>, res: Response) => {
-		const place = await placesService.deletePlace(req.params.id);
-		res.status(httpStatus.OK).send(place);
+	(req: Request<IPlaceParam, never, never, never>, _res: Response) => {
+		return placesService.deletePlace(req.params.id);
 	}
 );
 
