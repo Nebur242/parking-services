@@ -1,6 +1,7 @@
 import httpStatus from 'http-status';
 import { ApiError } from '../../utils/ApiError';
 import { CreatePlaceDto } from './dto/create-place.dto';
+import { FilterDto } from './dto/filter.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
 import { Place } from './models/place.model';
 
@@ -14,8 +15,8 @@ const findOne = async (id: string) => {
 	return place;
 };
 
-const findAll = async () => {
-	return Place.find();
+const findAll = async (filter: FilterDto | {}) => {
+	return Place.find(filter).populate('stage');
 };
 
 const updatePlace = async (updatePlaceDto: UpdatePlaceDto) => {

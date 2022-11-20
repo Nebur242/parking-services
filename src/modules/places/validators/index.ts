@@ -19,6 +19,12 @@ const updatePlace = {
 	}),
 };
 
+const filterQuery = {
+	query: Joi.object().keys({
+		stage: Joi.string().optional().custom(objectId),
+	}),
+};
+
 const findOne = {
 	params: Joi.object().keys({
 		id: Joi.string().required().custom(objectId),
@@ -29,4 +35,5 @@ export default {
 	createPlace,
 	updatePlace,
 	findOne,
+	filterQuery,
 };
