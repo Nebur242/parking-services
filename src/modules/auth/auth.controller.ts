@@ -42,7 +42,7 @@ const refreshTokens = catchAsync(
 		req: Request<never, never, RefreshTokenDto, never, never>,
 		_res: Response
 	) => {
-		return authService.refreshAuth(req.body.refreshToken);
+		return authService.refreshAuth(req.body);
 	}
 );
 

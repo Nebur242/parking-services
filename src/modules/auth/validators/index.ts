@@ -12,9 +12,16 @@ const login = {
 	}),
 };
 
+const logout = {
+	body: Joi.object().keys({
+		refreshToken: Joi.string().required(),
+	}),
+};
+
 const refreshToken = {
 	body: Joi.object().keys({
 		refreshToken: Joi.string().required(),
+		accessToken: Joi.string().required(),
 	}),
 };
 
@@ -22,4 +29,5 @@ export default {
 	register,
 	login,
 	refreshToken,
+	logout,
 };

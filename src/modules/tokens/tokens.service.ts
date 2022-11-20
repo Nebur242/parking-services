@@ -94,7 +94,7 @@ const generateAuthTokens = async (
 	};
 };
 
-const verifyToken = async (token: string, type: TokenTypes) => {
+const verifyRefreshToken = async (token: string, type: TokenTypes) => {
 	const payload = jwt.verify(token, config.jwt.secret);
 	const tokenDoc = await Token.findOne({
 		token,
@@ -108,8 +108,13 @@ const verifyToken = async (token: string, type: TokenTypes) => {
 	return tokenDoc;
 };
 
+const verifyToken = async (token: string) => {
+	return jwt.verify(token, config.jwt.secret);
+};
+
 export default {
 	generateToken,
 	generateAuthTokens,
 	verifyToken,
+	verifyRefreshToken,
 };

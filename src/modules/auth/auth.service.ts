@@ -1,4 +1,6 @@
 import httpStatus from 'http-status';
+import jwt from 'jsonwebtoken';
+
 import { TokenTypes } from '../../config/tokens';
 import { ApiError } from '../../utils/ApiError';
 import { Token } from '../tokens/models/token.model';
@@ -8,6 +10,7 @@ import { logger } from '../../config/logger';
 import { LoginDto } from './dto/login.dto';
 import { IUserDoc } from '../users/models/user.model';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 const register = async (registerDto: CreateUserDto) => {
 	const user = await usersService.create(registerDto);
@@ -40,17 +43,25 @@ const logout = async (refreshToken: string) => {
 	await refreshTokenDoc.remove();
 };
 
-const refreshAuth = async (refreshToken: string) => {
+const refreshAuth = async (refreshTokenDto: RefreshTokenDto) => {
 	try {
-		const refreshTokenDoc = await tokensService.verifyToken(
-			refreshToken,
+		const accessTokenVerified = await tokensService.verifyToken(
+			refreshTokenDto.accessToken
+		);
+
+		if (!accessTokenVerified) throw new Error();
+
+		const refreshTokenDoc = await tokensService.verifyRefreshToken(
+			refreshTokenDto.refreshToken,
 			TokenTypes.REFRESH
 		);
+
 		const user = await usersService.findOne(refreshTokenDoc.user._id);
-		if (!user) {
-			throw new Error();
-		}
+
+		if (!user) throw new Error();
+
 		await refreshTokenDoc.remove();
+
 		return tokensService.generateAuthTokens(user);
 	} catch (error) {
 		logger.error(error);
