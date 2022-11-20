@@ -1,5 +1,3 @@
-import { HttpStatus } from 'http-status';
-
 class ApiError extends Error {
 	statusCode: number;
 	isOperational: Boolean;
