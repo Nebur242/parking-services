@@ -14,8 +14,14 @@ router.post(
 );
 router.post('/login', validate(validators.login), authController.login);
 router.post(
-	'/refreshTokens',
+	'/logout',
 	auth(),
+	validate(validators.refreshToken),
+	authController.logout
+);
+
+router.post(
+	'/refreshTokens',
 	validate(validators.refreshToken),
 	authController.refreshTokens
 );

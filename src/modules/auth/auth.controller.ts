@@ -33,7 +33,7 @@ const authenticate = catchAsync(
 	}
 );
 
-const logout = catchAsync(async (req: Request, res: Response) => {
+const logout = catchAsync(async (req: Request, _res: Response) => {
 	return authService.logout(req.body.refreshToken);
 });
 
