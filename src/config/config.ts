@@ -16,6 +16,7 @@ interface IConfig {
 	jwt: {
 		secret: string;
 		accessExpirationMinutes: number;
+		accessExpirationDays: number;
 		refreshExpirationDays: number;
 		resetPasswordExpirationMinutes: number;
 		verifyEmailExpirationMinutes: number;
@@ -40,6 +41,7 @@ const config: IConfig = {
 		accessExpirationMinutes: Number(
 			process.env.JWT_ACCESS_EXPIRATION_MINUTES
 		),
+		accessExpirationDays: Number(process.env.JWT_ACCESS_EXPIRATION_DAYS),
 		refreshExpirationDays: Number(process.env.JWT_REFRESH_EXPIRATION_DAYS),
 		resetPasswordExpirationMinutes: Number(
 			process.env.JWT_RESET_PASSWORD_EXPIRATION_MINUTES

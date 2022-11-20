@@ -58,7 +58,7 @@ const generateAuthTokens = async (
 }> => {
 	const accessTokenExpires = moment().add(
 		config.jwt.accessExpirationMinutes,
-		'minutes'
+		'days'
 	);
 	const accessToken = generateToken({
 		userId: user._id,
