@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
+import { Error } from 'mongoose';
+import { MongoError } from 'mongodb';
 
 //'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 const getStatusCode = (method: string): number => {
@@ -26,7 +28,13 @@ const catchAsync =
 					data,
 				});
 			})
-			.catch((err) => next(err));
+			.catch((err) => {
+				console.log('err', err.name);
+				if (err instanceof Error) {
+					console.log('hello');
+				}
+				next(err);
+			});
 	};
 
 export { catchAsync };

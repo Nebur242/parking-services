@@ -1,6 +1,7 @@
 import mongoose, { Model, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { Roles } from '../../../config/roles';
+import config from '../../../config/config';
 
 export interface IUser {
 	firstname: string;
@@ -72,7 +73,15 @@ const userSchema = new mongoose.Schema<IUser, IUserMethods, UserModel>(
 			default: false,
 		},
 	},
-	{ timestamps: true }
+	{
+		timestamps: true,
+		toJSON: {
+			transform(_doc, ret) {
+				delete ret.password;
+				return ret;
+			},
+		},
+	}
 );
 
 userSchema.static(
@@ -91,7 +100,8 @@ userSchema.method('isPasswordMatch', async function (password: string) {
 userSchema.pre('save', async function (next) {
 	const user = this;
 	if (user.isModified('password')) {
-		user.password = await bcrypt.hash(user.password, 8);
+		const salt = await bcrypt.genSalt(config.auth.saltRounds);
+		user.password = await bcrypt.hash(user.password, salt);
 	}
 	next();
 });

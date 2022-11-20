@@ -20,6 +20,9 @@ interface IConfig {
 		resetPasswordExpirationMinutes: number;
 		verifyEmailExpirationMinutes: number;
 	};
+	auth: {
+		saltRounds: number;
+	};
 }
 
 const config: IConfig = {
@@ -28,6 +31,9 @@ const config: IConfig = {
 	mongoose: {
 		uri: process.env.MONGODB_URI,
 		options: {},
+	},
+	auth: {
+		saltRounds: Number(process.env.PASSWORD_SALTROUNDS),
 	},
 	jwt: {
 		secret: process.env.JWT_SECRET,

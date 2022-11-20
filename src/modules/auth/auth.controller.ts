@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
-import httpStatus from 'http-status';
 import { catchAsync } from '../../utils/catchAsync';
-import tokensService from '../tokens/tokens.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import usersService from '../users/users.service';
+import { IUserDoc } from '../users/models/user.model';
 import authService from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
@@ -11,26 +9,27 @@ import { RefreshTokenDto } from './dto/refresh-token.dto';
 const register = catchAsync(
 	async (
 		req: Request<never, never, CreateUserDto, never, never>,
-		res: Response
+		_res: Response
 	) => {
-		const user = await usersService.create(req.body);
-		const tokens = await tokensService.generateAuthTokens(user);
-		return { user, tokens };
+		return authService.register(req.body);
 	}
 );
 
 const login = catchAsync(
 	async (
 		req: Request<never, never, LoginDto, never, never>,
-		res: Response
+		_res: Response
 	) => {
-		const { email, password } = req.body;
-		const user = await authService.loginUserWithEmailAndPassword(
-			email,
-			password
-		);
-		const tokens = await tokensService.generateAuthTokens(user);
-		return { user, tokens };
+		return authService.loginUserWithEmailAndPassword(req.body);
+	}
+);
+
+const authenticate = catchAsync(
+	async (
+		req: Request<never, never, LoginDto, never, never> & { user: IUserDoc },
+		_res: Response
+	) => {
+		return authService.authenticate(req.user);
 	}
 );
 
@@ -41,14 +40,14 @@ const logout = catchAsync(async (req: Request, res: Response) => {
 const refreshTokens = catchAsync(
 	async (
 		req: Request<never, never, RefreshTokenDto, never, never>,
-		res: Response
+		_res: Response
 	) => {
-		const tokens = await authService.refreshAuth(req.body.refreshToken);
-		return { ...tokens };
+		return authService.refreshAuth(req.body.refreshToken);
 	}
 );
 
 export default {
+	authenticate,
 	register,
 	refreshTokens,
 	logout,

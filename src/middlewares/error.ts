@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { MongooseError } from 'mongoose';
 import config from '../config/config';
 import { ApiError } from '../utils/ApiError';
 import httpStatus from 'http-status';
@@ -14,7 +14,9 @@ const errorConverter = (
 	let error = err;
 	if (!(error instanceof ApiError)) {
 		const statusCode =
-			(error as ApiError).statusCode || error instanceof mongoose.Error
+			(error as ApiError).statusCode ||
+			error instanceof mongoose.Error ||
+			error.name === 'MongoServerError'
 				? httpStatus.BAD_REQUEST
 				: httpStatus.INTERNAL_SERVER_ERROR;
 		const message = error.message || httpStatus[statusCode];
@@ -38,7 +40,7 @@ const errorHandler = (
 	res.locals.errorMessage = err.message;
 
 	const response = {
-		statusCode: statusCode,
+		statusCode,
 		message,
 		...(config.env === 'development' && { stack: err.stack }),
 	};

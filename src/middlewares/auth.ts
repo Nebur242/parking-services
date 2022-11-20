@@ -48,8 +48,8 @@ const auth =
 				verifyCallback(req, resolve, reject, roles)
 			)(req, res, next);
 		})
-			.then(() => next())
-			.catch((err) => next(err));
+			.then(next)
+			.catch(next);
 	};
 
 export { auth };

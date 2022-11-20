@@ -1,4 +1,4 @@
-import express, { Response, Request } from 'express';
+import express, { Response, Request, Express } from 'express';
 import helmet from 'helmet';
 import routesV1 from './routes/v1';
 import errorsMiddleware from './middlewares/error';
@@ -7,36 +7,40 @@ import { ApiError } from './utils/ApiError';
 import httpStatus from 'http-status';
 import passport from 'passport';
 import { jwtStrategy } from './config/passport';
+import cors from 'cors';
 
-const globalPrefix = '/api';
+function bootstrap(app: Express) {
+	const globalPrefix = '/api';
+	const defaultVersion = 'v1';
+	//Request logger
+	app.use(morgan.successHandler);
+	app.use(morgan.errorHandler);
 
-const app = express();
+	// set security HTTP headers
+	app.use(helmet());
+	app.use(cors());
 
-//Request logger
-app.use(morgan.successHandler);
-app.use(morgan.errorHandler);
+	app.use(express.json());
 
-// set security HTTP headers
-app.use(helmet());
+	// jwt authentication
+	app.use(passport.initialize());
+	passport.use('jwt', jwtStrategy);
 
-app.use(express.json());
+	// v1 api routes
+	app.use(`${globalPrefix}/${defaultVersion}`, routesV1);
 
-// jwt authentication
-app.use(passport.initialize());
-passport.use('jwt', jwtStrategy);
+	// catch uncaugth routes
+	app.use((_req: Request, _res: Response, next) => {
+		next(new ApiError(httpStatus.NOT_FOUND, 'Route Not found'));
+	});
 
-// v1 api routes
-app.use(`${globalPrefix}/v1`, routesV1);
+	// convert error to ApiError, if needed
+	app.use(errorsMiddleware.errorConverter);
 
-// catch uncaugth routes
-app.use((_req: Request, _res: Response, next) => {
-	next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
-});
+	// handle error
+	app.use(errorsMiddleware.errorHandler);
 
-// convert error to ApiError, if needed
-app.use(errorsMiddleware.errorConverter);
+	return app;
+}
 
-// handle error
-app.use(errorsMiddleware.errorHandler);
-
-export { app };
+export { bootstrap };

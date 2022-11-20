@@ -1,39 +1,26 @@
 import mongoose from 'mongoose';
-import { app } from './app';
+import { bootstrap } from './app';
 import config from './config/config';
 import { logger } from './config/logger';
+import { Server } from 'http';
+import { unexpectedErrorHandler } from './utils/functions';
 
-let server;
-
-mongoose.connect(config.mongoose.uri, config.mongoose.options).then(() => {
-	logger.info('Connected to MongoDB');
-	server = app.listen(config.port, () => {
-		logger.info(`Listening to port ${config.port}`);
-	});
-});
-
-const exitHandler = () => {
-	if (server) {
-		server.close(() => {
-			logger.info('Server closed');
-			process.exit(1);
+async function start() {
+	let server: Server;
+	try {
+		await mongoose.connect(config.mongoose.uri, config.mongoose.options);
+		logger.info('Connected to MongoDB');
+		const express = await import('express');
+		const app = bootstrap(express.default());
+		server = app.listen(config.port, () => {
+			logger.info(`Listening to port ${config.port}`);
 		});
-	} else {
-		process.exit(1);
+		process.on('uncaughtException', unexpectedErrorHandler(server));
+		process.on('unhandledRejection', unexpectedErrorHandler(server));
+		process.on('SIGTERM', unexpectedErrorHandler(server));
+	} catch (error) {
+		unexpectedErrorHandler(server)(error);
 	}
-};
+}
 
-const unexpectedErrorHandler = (error) => {
-	logger.error(error);
-	exitHandler();
-};
-
-process.on('uncaughtException', unexpectedErrorHandler);
-process.on('unhandledRejection', unexpectedErrorHandler);
-
-process.on('SIGTERM', () => {
-	logger.info('SIGTERM received');
-	if (server) {
-		server.close();
-	}
-});
+start();

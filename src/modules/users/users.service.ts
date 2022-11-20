@@ -11,11 +11,9 @@ const create = async (createUserDto: CreateUserDto) => {
 	return User.create(createUserDto);
 };
 
-const findOne = (id: string) => {
-	return User.findById(id);
-};
+const findOne = async (id: string) => User.findById(id);
 
-const findOneByEmail = async (email: string) => {
+const findOneByEmail = (email: string) => {
 	return User.findOne({ email });
 };
 
