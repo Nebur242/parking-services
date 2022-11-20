@@ -1,11 +1,13 @@
 import httpStatus from 'http-status';
 import { ApiError } from '../../utils/ApiError';
+import stagesService from '../stages/stages.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { FilterDto } from './dto/filter.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
 import { Place } from './models/place.model';
 
-const createPlace = (createPlaceDto: CreatePlaceDto) => {
+const createPlace = async (createPlaceDto: CreatePlaceDto) => {
+	await stagesService.findOne(createPlaceDto.stage);
 	return Place.create(createPlaceDto);
 };
 
