@@ -15,6 +15,7 @@ const StageSchema = new mongoose.Schema<IStage>(
 		location: {
 			type: Number,
 			required: true,
+			unique: true,
 			min: [1, 'Must be at least 1, got {VALUE}'],
 		},
 	},
