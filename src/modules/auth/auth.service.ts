@@ -1,6 +1,4 @@
 import httpStatus from 'http-status';
-import jwt from 'jsonwebtoken';
-
 import { TokenTypes } from '../../config/tokens';
 import { ApiError } from '../../utils/ApiError';
 import { Token } from '../tokens/models/token.model';

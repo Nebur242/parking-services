@@ -28,13 +28,7 @@ const catchAsync =
 					data,
 				});
 			})
-			.catch((err) => {
-				console.log('err', err.name);
-				if (err instanceof Error) {
-					console.log('hello');
-				}
-				next(err);
-			});
+			.catch(next);
 	};
 
 export { catchAsync };
