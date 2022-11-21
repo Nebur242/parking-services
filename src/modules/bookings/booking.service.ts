@@ -23,7 +23,9 @@ const createBooking = async (
 		available: false,
 	});
 
-	return booking;
+	return Booking.findOne({ _id: booking._id })
+		.populate('place')
+		.populate('user');
 };
 
 const findOne = async (id: string) => {
