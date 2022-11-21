@@ -6,12 +6,11 @@ import { auth } from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.post(
-	'/',
-	auth(),
-	validate(validators.createBooking),
-	bookingController.create
-);
+router
+	.route('/')
+	.get(auth(), bookingController.findAll)
+	.post(auth(), validate(validators.createBooking), bookingController.create);
+
 router.patch(
 	'/:id',
 	auth(),

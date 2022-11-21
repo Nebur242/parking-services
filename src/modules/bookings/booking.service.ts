@@ -1,10 +1,12 @@
 import httpStatus from 'http-status';
 import { ApiError } from '../../utils/ApiError';
-import { Place } from '../places/models/place.model';
 import placesService from '../places/places.service';
 import { IUserDoc } from '../users/models/user.model';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { Booking } from './models/booking.model';
+import { Place } from '../places/models/place.model';
+import { Stage } from '../stages/models/stage.model';
+import { FilterDto } from './dto/filter.dto';
 
 const createBooking = async (
 	createBookingDto: CreateBookingDto & { user: IUserDoc }
@@ -24,14 +26,35 @@ const createBooking = async (
 	});
 
 	return Booking.findOne({ _id: booking._id })
-		.populate('place')
+		.populate({
+			path: 'place',
+			model: Place,
+			populate: {
+				path: 'stage',
+				model: Stage,
+			},
+		})
 		.populate('user');
 };
 
-const findOne = async (id: string) => {
-	const booking = await (
-		await (await Booking.findById(id)).populate('place')
-	).populate('user');
+const findAll = (filter: FilterDto) => {
+	return Booking.find(filter || {})
+		.populate({
+			path: 'place',
+			model: Place,
+			populate: {
+				path: 'stage',
+				model: Stage,
+			},
+		})
+		.populate('user');
+};
+
+const findOne = async (_id: string) => {
+	const booking = await Booking.findOne({ _id })
+		.populate('place')
+		.populate('place.stage')
+		.populate('user');
 	if (!booking) throw new ApiError(httpStatus.NOT_FOUND, 'Booking not found');
 	return booking;
 };
@@ -55,4 +78,5 @@ const updateBooking = async (id: string) => {
 export default {
 	createBooking,
 	updateBooking,
+	findAll,
 };
