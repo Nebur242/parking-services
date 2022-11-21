@@ -41,7 +41,7 @@ const updateBooking = async (id: string) => {
 	await Booking.updateOne(
 		{ _id: booking._id },
 		{
-			end: Date.now,
+			end: Date.now(),
 		}
 	).exec();
 	await placesService.updatePlace({
