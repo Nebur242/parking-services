@@ -12,7 +12,7 @@ router.post(
 	validate(validators.createBooking),
 	bookingController.create
 );
-router.post(
+router.patch(
 	'/:id',
 	auth(),
 	validate(validators.updateBooking),
