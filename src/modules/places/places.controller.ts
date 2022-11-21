@@ -10,19 +10,19 @@ interface IPlaceParam {
 }
 
 const create = catchAsync(
-	(req: Request<never, never, CreatePlaceDto, never>, res: Response) => {
+	(req: Request<never, never, CreatePlaceDto, never>, _res: Response) => {
 		return placesService.createPlace(req.body);
 	}
 );
 
 const findAll = catchAsync(
-	(req: Request<never, never, never, FilterDto, never>, res: Response) => {
+	(req: Request<never, never, never, FilterDto, never>, _res: Response) => {
 		return placesService.findAll(req.query || {});
 	}
 );
 
 const findOne = catchAsync(
-	(req: Request<IPlaceParam, never, never, never>, res: Response) => {
+	(req: Request<IPlaceParam, never, never, never>, _res: Response) => {
 		return placesService.findOne(req.params.id);
 	}
 );
