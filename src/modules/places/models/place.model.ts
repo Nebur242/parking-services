@@ -15,12 +15,12 @@ const PlaceSchema = new mongoose.Schema<IPlace>(
 		name: {
 			type: String,
 			required: true,
-			unique: true,
+			index: true,
 		},
 		location: {
 			type: Number,
 			required: true,
-			unique: true,
+			index: true,
 			min: [1, 'Must be at least 1, got {VALUE}'],
 		},
 		available: {
@@ -31,11 +31,21 @@ const PlaceSchema = new mongoose.Schema<IPlace>(
 		stage: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Stage',
+			index: true,
 		},
 	},
 	{
 		timestamps: true,
 	}
+);
+
+PlaceSchema.index(
+	{
+		name: 1,
+		location: 1,
+		stage: 1,
+	},
+	{ unique: true }
 );
 
 const Place = mongoose.model('Place', PlaceSchema);
