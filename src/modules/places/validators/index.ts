@@ -22,6 +22,7 @@ const updatePlace = {
 const filterQuery = {
 	query: Joi.object().keys({
 		stage: Joi.string().optional().custom(objectId),
+		available: Joi.boolean().optional(),
 	}),
 };
 
