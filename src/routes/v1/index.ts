@@ -3,6 +3,7 @@ import config from '../../config/config';
 import PlacesRoute from './places.routes';
 import StagesRoute from './stages.routes';
 import AuthRoute from './auth.routes';
+import BookingsRoute from './bookings.routes';
 
 const router = express.Router();
 
@@ -10,6 +11,10 @@ const defaultRoutes = [
 	{
 		path: '/auth',
 		route: AuthRoute,
+	},
+	{
+		path: '/bookings',
+		route: BookingsRoute,
 	},
 	{
 		path: '/places',

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import { IStage } from '../../stages/models/stage.model';
 
 export interface IPlace {
@@ -7,6 +7,8 @@ export interface IPlace {
 	name: string;
 	stage: IStage;
 }
+
+export interface IPlaceDoc extends IPlace, Document {}
 
 const PlaceSchema = new mongoose.Schema<IPlace>(
 	{

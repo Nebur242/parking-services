@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import httpStatus from 'http-status';
 import { catchAsync } from '../../utils/catchAsync';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { FilterDto } from './dto/filter.dto';
