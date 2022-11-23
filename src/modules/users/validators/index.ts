@@ -9,7 +9,7 @@ const createUser = {
 			minDomainSegments: 2,
 			tlds: { allow: ['com', 'net'] },
 		}),
-		roles: Joi.array<string>().required().custom(validateRolesEnum),
+		roles: Joi.required().custom(validateRolesEnum),
 		password: Joi.string().min(6).required(),
 	}),
 };
