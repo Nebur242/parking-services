@@ -1,9 +1,11 @@
-import { IUser } from '../models/user.model';
-
-export class UpdateUserDto
-	implements Omit<IUser, 'email' | 'password' | 'isEmailVerified' | 'roles'>
-{
-	firstname: string;
-	lastname: string;
+import { Roles } from '../../../config/roles';
+export class UpdateUserDto {
+	firstname?: string;
+	lastname?: string;
 	id: string;
+	email?: string;
+	roles?: Roles[];
+	password?: string;
+	newPassword?: string;
+	confirmNewPassword?: string;
 }

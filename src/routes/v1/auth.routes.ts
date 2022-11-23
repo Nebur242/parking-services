@@ -27,4 +27,11 @@ router.post(
 	authController.refreshTokens
 );
 
+router.patch(
+	'/users',
+	auth(),
+	validate(validators.updateUser),
+	authController.updateUser
+);
+
 export default router;

@@ -1,8 +1,12 @@
 import Joi from 'Joi';
-import { CreateUserDto } from '../../../modules/users/dto/create-user.dto';
+import userValidators from '../../users/validators';
 
 const register = {
-	...CreateUserDto,
+	...userValidators.createUser,
+};
+
+const updateUser = {
+	...userValidators.updateSelfUser,
 };
 
 const login = {
@@ -30,4 +34,5 @@ export default {
 	login,
 	refreshToken,
 	logout,
+	updateUser,
 };

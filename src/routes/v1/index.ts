@@ -4,7 +4,7 @@ import PlacesRoute from './places.routes';
 import StagesRoute from './stages.routes';
 import AuthRoute from './auth.routes';
 import BookingsRoute from './bookings.routes';
-import UsersRoute from './user.routes';
+import UsersRoute from './users.routes';
 
 const router = express.Router();
 

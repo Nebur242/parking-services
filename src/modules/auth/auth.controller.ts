@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { UpdateUserDto } from '../users/dto/update-user.dto';
 import { IUserDoc } from '../users/models/user.model';
+import usersService from '../users/users.service';
 import authService from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
@@ -46,10 +48,25 @@ const refreshTokens = catchAsync(
 	}
 );
 
+const updateUser = catchAsync(
+	async (
+		req: Request<never, never, UpdateUserDto, never, never> & {
+			user: IUserDoc;
+		},
+		_res: Response
+	) => {
+		return usersService.update({
+			id: req.user._id,
+			...req.body,
+		});
+	}
+);
+
 export default {
 	authenticate,
 	register,
 	refreshTokens,
 	logout,
 	login,
+	updateUser,
 };
