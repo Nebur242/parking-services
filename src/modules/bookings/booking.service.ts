@@ -15,6 +15,18 @@ const createBooking = async (
 	if (!place.available) {
 		throw new ApiError(httpStatus.FORBIDDEN, 'Place not available');
 	}
+	const isCurrentlyBooking = await Booking.findOne({
+		user: createBookingDto.user,
+		end: null,
+	});
+
+	if (isCurrentlyBooking) {
+		throw new ApiError(
+			httpStatus.FORBIDDEN,
+			'Please close your previous booking !'
+		);
+	}
+
 	const booking = await Booking.create({
 		place,
 		user: createBookingDto.user,

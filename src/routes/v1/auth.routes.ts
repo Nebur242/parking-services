@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import authController from '../../modules/auth/auth.controller';
 import validate from '../../middlewares/validate';
 import validators from '../../modules/auth/validators';

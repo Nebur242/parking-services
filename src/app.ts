@@ -1,4 +1,4 @@
-import express, { Response, Request, Express } from 'express';
+import * as express from 'express';
 import helmet from 'helmet';
 import routesV1 from './routes/v1';
 import errorsMiddleware from './middlewares/error';
@@ -9,7 +9,7 @@ import passport from 'passport';
 import { jwtStrategy } from './config/passport';
 import cors from 'cors';
 
-function bootstrap(app: Express) {
+function bootstrap(app: express.Express) {
 	const globalPrefix = '/api';
 	const defaultVersion = 'v1';
 	//Request logger
@@ -30,7 +30,7 @@ function bootstrap(app: Express) {
 	app.use(`${globalPrefix}/${defaultVersion}`, routesV1);
 
 	// catch uncaugth routes
-	app.use((_req: Request, _res: Response, next) => {
+	app.use((_req: express.Request, _res: express.Response, next) => {
 		next(new ApiError(httpStatus.NOT_FOUND, 'Route Not found'));
 	});
 

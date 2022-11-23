@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import validate from '../../middlewares/validate';
 import validators from '../../modules/places/validators';
 import placesController from '../../modules/places/places.controller';
@@ -11,7 +11,7 @@ router
 	.route('/')
 	.get(validate(validators.filterQuery), placesController.findAll)
 	.post(
-		auth([Roles.ADMIN]),
+		// auth([Roles.ADMIN]),
 		validate(validators.createPlace),
 		placesController.create
 	);
@@ -29,5 +29,7 @@ router
 		validate(validators.findOne),
 		placesController.delete
 	);
+
+router.get('/:id/stats', placesController.placeStats);
 
 export default router;

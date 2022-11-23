@@ -1,3 +1,4 @@
 export class FilterDto {
-	user: string;
+	user?: string;
+	place?: string;
 }

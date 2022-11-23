@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import stagesController from '../../modules/stages/stages.controller';
 import validators from '../../modules/stages/validators';
 import validate from '../../middlewares/validate';
@@ -7,14 +7,11 @@ import { Roles } from '../../config/roles';
 
 const router = express.Router();
 
-router
-	.route('/')
-	.get(stagesController.findAll)
-	.post(
-		auth([Roles.ADMIN]),
-		validate(validators.createStage),
-		stagesController.create
-	);
+router.route('/').get(stagesController.findAll).post(
+	// auth([Roles.ADMIN]),
+	validate(validators.createStage),
+	stagesController.create
+);
 
 router
 	.route('/:id')

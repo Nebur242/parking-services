@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import { Roles } from '../../config/roles';
 import usersController from '../../modules/users/users.controller';
 import { auth } from '../../middlewares/auth';

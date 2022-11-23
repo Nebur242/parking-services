@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import config from '../../config/config';
 import PlacesRoute from './places.routes';
 import StagesRoute from './stages.routes';

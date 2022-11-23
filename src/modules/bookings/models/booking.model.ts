@@ -7,6 +7,8 @@ export interface IBooking {
 	user: IUserDoc;
 	start: Date;
 	end: Date;
+	createdAt: Date;
+	updateAt: Date;
 }
 
 const BookingSchema = new mongoose.Schema<IBooking>(

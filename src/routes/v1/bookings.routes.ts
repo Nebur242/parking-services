@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import validators from '../../modules/bookings/validators';
 import validate from '../../middlewares/validate';
 import bookingController from '../../modules/bookings/booking.controller';
@@ -11,11 +11,12 @@ router
 	.get(auth(), bookingController.findAll)
 	.post(auth(), validate(validators.createBooking), bookingController.create);
 
-router.patch(
-	'/:id',
-	auth(),
-	validate(validators.updateBooking),
-	bookingController.update
-);
+router
+	.route('/:id')
+	.patch(
+		auth(),
+		validate(validators.updateBooking),
+		bookingController.update
+	);
 
 export default router;

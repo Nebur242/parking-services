@@ -46,10 +46,17 @@ const deletePlace = catchAsync(
 	}
 );
 
+const placeStats = catchAsync(
+	(req: Request<IPlaceParam, never, never, never>, _res: Response) => {
+		return placesService.placeStats(req.params.id);
+	}
+);
+
 export default {
 	create,
 	update,
 	findAll,
 	findOne,
 	delete: deletePlace,
+	placeStats,
 };
