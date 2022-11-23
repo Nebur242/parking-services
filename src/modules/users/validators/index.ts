@@ -1,6 +1,5 @@
 import Joi from 'Joi';
-import { objectId } from '../../../utils/custom-validation';
-import { Roles } from '../../../config/roles';
+import { objectId, validateRolesEnum } from '../../../utils/custom-validation';
 
 const createUser = {
 	body: Joi.object().keys({
@@ -10,9 +9,7 @@ const createUser = {
 			minDomainSegments: 2,
 			tlds: { allow: ['com', 'net'] },
 		}),
-		roles: Joi.array<Roles>().valid(
-			...Object.values(Roles).map((x) => `${x}`)
-		),
+		roles: Joi.string().required().custom(validateRolesEnum),
 		password: Joi.string().min(6).required(),
 	}),
 };
@@ -29,9 +26,6 @@ const updateUser = {
 				minDomainSegments: 2,
 				tlds: { allow: ['com', 'net'] },
 			})
-			.optional(),
-		roles: Joi.array<Roles>()
-			.valid(...Object.values(Roles))
 			.optional(),
 		password: Joi.string().min(6).optional(),
 		newPassword: Joi.string().min(6).optional(),
