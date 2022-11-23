@@ -8,11 +8,12 @@ export const objectId = (value, helpers) => {
 };
 
 export const validateRolesEnum = (value: Roles[], helpers) => {
+	console.log(value);
 	const valid = value.every((val) => [...Object.values(Roles)].includes(val));
 	if (!valid) {
 		return helpers.message(
 			`Roles must be in [${[...Object.values(Roles)].join(' , ')}]`
 		);
 	}
-	return valid;
+	return value;
 };
