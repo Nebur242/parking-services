@@ -1,0 +1,756 @@
+{
+	"info": {
+		"_postman_id": "81c7b391-c652-4821-9dec-5a4f8144c9c2",
+		"name": "Parking service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10352308"
+	},
+	"item": [
+		{
+			"name": "Places",
+			"item": [
+				{
+					"name": "Get all places",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5MDMwNDEsImV4cCI6MTY2ODkwNDg0MSwidHlwZSI6ImFjY2VzcyJ9.G2ouX50ndVlDVq9YI_5wgnKvw0RrcQ8UbLW8p0-Pd3Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/places",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all places available by stage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5MDMwNDEsImV4cCI6MTY2ODkwNDg0MSwidHlwZSI6ImFjY2VzcyJ9.G2ouX50ndVlDVq9YI_5wgnKvw0RrcQ8UbLW8p0-Pd3Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/places?available=true&stage=63783a66d57e2b4fe0c4e9c2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"places"
+							],
+							"query": [
+								{
+									"key": "available",
+									"value": "true"
+								},
+								{
+									"key": "stage",
+									"value": "63783a66d57e2b4fe0c4e9c2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create one place",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5MTI2MzIsImV4cCI6MTY2ODkxNDQzMiwidHlwZSI6ImFjY2VzcyJ9.SK3BGbyqn1AfSuGbh1tUIkqDXbZ5rBmV5XbTJ5qxRkc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"place 10\",\n    \"location\" : 10,\n    \"stage\" : \"637989a0d91430775731c462\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/places",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get place by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/places/6379979110aebfd748d04864",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"places",
+								"6379979110aebfd748d04864"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get place by id Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/places/637bec12e89df5f0c2cdf489/stats",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"places",
+								"637bec12e89df5f0c2cdf489",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update place by id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"available\" : false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/places/6376d7887c510b6a8c6861ba",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"places",
+								"6376d7887c510b6a8c6861ba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete one place",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/places/6376d7887c510b6a8c6861ba",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"places",
+								"6376d7887c510b6a8c6861ba"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stages",
+			"item": [
+				{
+					"name": "Get all stages",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/stages",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create one stage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\" : 3,\n    \"name\" : \"longhorn\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/stages",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get stage by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/stages/637837bb6dd84528b49aa1e1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stages",
+								"637837bb6dd84528b49aa1e1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update stage by id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"katana\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/stages/637837bb6dd84528b49aa1e1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stages",
+								"637837bb6dd84528b49aa1e1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete one stage",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"location\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/stages/637837bb6dd84528b49aa1e1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stages",
+								"637837bb6dd84528b49aa1e1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"toto\",\n    \"lastname\" : \"tata\",\n    \"email\" : \"toto.tata@gmail.com\",\n    \"roles\" : [\"user\"],\n    \"password\" : \"ZEAbraw5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/auth/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5OTRjODhlMTJmMmExYTkxZGMxYjUiLCJpYXQiOjE2NjkyNDA2MjEsImV4cCI6MTY3MTgzMjYyMSwidHlwZSI6ImFjY2VzcyJ9.3wVvgE5DEDLFSbQoy_9claECTZRE73Cv9wgy65GE-wU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\" : \"toto\",\n    \"email\" : \"mdave@gmail3.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/auth/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"mdave@gmail2.com\",\n    \"password\" : \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5ODkwMjcsImV4cCI6MTY3MTU4MTAyNywidHlwZSI6ImFjY2VzcyJ9.H-hc9CN96Ff8omaZcep9lRA5lIyy7yCwmqwHkDW20ok",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5ODkwMjcsImV4cCI6MTY3MTU4MTAyNywidHlwZSI6InJlZnJlc2gifQ.G1b1smfLkJ_I3qIeUlF_ZyQeBARg-oU3NLezcuKVHZ0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/auth/logout",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5ODgyMTQsImV4cCI6MTY3MTU4MDIxNCwidHlwZSI6InJlZnJlc2gifQ.d2baDRh9LZkon4p9hi4gTAwj7vzmaixDicTI0tMDHqk\",\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5ODgyMTQsImV4cCI6MTY3MTU4MDIxNCwidHlwZSI6ImFjY2VzcyJ9.iy2jSUHSnXXcdn6lYjS0krMMu8qQNtDZB0nhaxCN7g4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/auth/refreshTokens",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refreshTokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5ODAzOTcsImV4cCI6MTY2ODk4MjE5NywidHlwZSI6ImFjY2VzcyJ9.dHcq69OfXGG1PjoPuKSqOdywMqWsAdWgfnzGDIuWXuc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/auth",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Book a place",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2NjkxNjI4MDMsImV4cCI6MTY3MTc1NDgwMywidHlwZSI6ImFjY2VzcyJ9.dP3ScP3aoV25tCTa_O-iFd-yNiQJvIjIhd-oOKopDsA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"place\" : \"637d43fa7994f3cc90ed4241\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/bookings",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get out of the parking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2Njg5ODkwMjcsImV4cCI6MTY3MTU4MTAyNywidHlwZSI6ImFjY2VzcyJ9.H-hc9CN96Ff8omaZcep9lRA5lIyy7yCwmqwHkDW20ok",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/bookings/637bf727bc6560b0c5f77b9f",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"637bf727bc6560b0c5f77b9f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all bookings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzc5NGM3MjQ5NTc2MmJkZTIzN2I2ZjkiLCJpYXQiOjE2NjkwNzE1MjcsImV4cCI6MTY3MTY2MzUyNywidHlwZSI6ImFjY2VzcyJ9.Ncq8PdMQsXVmETPMg5fPsYN_YUpBZHYWAuSgxRM6qTE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/bookings",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/637994c88e12f2a1a91dc1b5",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"637994c88e12f2a1a91dc1b5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users Copy",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"mdave@gmail2.com\",\n    \"firstname\" : \"Dave 1\",\n    \"password\": \"ZEAbraw5\",\n    \"newPassword\": \"123456\",\n    \"confirmNewPassword\" : \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/v1/users/637994c88e12f2a1a91dc1b5",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"637994c88e12f2a1a91dc1b5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
