@@ -5,12 +5,14 @@ import { Roles } from '../../../config/roles';
 const createUser = {
 	body: Joi.object().keys({
 		firstname: Joi.string().required(),
-		lastname: Joi.number().required(),
+		lastname: Joi.string().required(),
 		email: Joi.string().email({
 			minDomainSegments: 2,
 			tlds: { allow: ['com', 'net'] },
 		}),
-		roles: Joi.array<Roles>().valid(...Object.values(Roles)),
+		roles: Joi.array<Roles>().valid(
+			...Object.values(Roles).map((x) => `${x}`)
+		),
 		password: Joi.string().min(6).required(),
 	}),
 };
