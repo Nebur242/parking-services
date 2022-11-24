@@ -7,10 +7,19 @@ import bcrypt from 'bcryptjs';
 import config from '../../config/config';
 
 const create = async (createUserDto: CreateUserDto) => {
+	const errors = [];
 	const exists = await User.isEmailTaken(createUserDto.email);
 	if (exists) {
-		throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+		errors.push('Email already taken');
 	}
+	if (createUserDto.password !== createUserDto.confirmPassword) {
+		errors.push('Passwords not match');
+	}
+
+	if (errors.length) {
+		throw new ApiError(httpStatus.BAD_REQUEST, errors[0]);
+	}
+
 	return User.create(createUserDto);
 };
 

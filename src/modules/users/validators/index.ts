@@ -11,6 +11,10 @@ const createUser = {
 		}),
 		roles: Joi.required().custom(validateRolesEnum),
 		password: Joi.string().min(6).required(),
+		confirmPassword: Joi.string()
+			.min(6)
+			.required()
+			.valid(Joi.ref('password')),
 	}),
 };
 
@@ -29,7 +33,10 @@ const updateUser = {
 			.optional(),
 		password: Joi.string().min(6).optional(),
 		newPassword: Joi.string().min(6).optional(),
-		confirmNewPassword: Joi.string().min(6).optional(),
+		confirmNewPassword: Joi.string()
+			.min(6)
+			.optional()
+			.valid(Joi.ref('newPassword')),
 	}),
 };
 

@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema<IUser, IUserMethods, UserModel>(
 		password: {
 			type: String,
 			required: true,
-			minlength: 8,
+			minlength: 6,
 			validate: {
 				validator: (value: string) => {
 					if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {

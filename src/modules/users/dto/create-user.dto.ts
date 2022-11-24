@@ -7,4 +7,5 @@ export class CreateUserDto implements IUser {
 	email: string;
 	roles: Roles[];
 	password: string;
+	confirmPassword: string;
 }
