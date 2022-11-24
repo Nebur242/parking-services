@@ -24,7 +24,7 @@ const updateUser = {
 	}),
 	body: Joi.object().keys({
 		firstname: Joi.string().optional(),
-		lastname: Joi.number().optional(),
+		lastname: Joi.string().optional(),
 		email: Joi.string()
 			.email({
 				minDomainSegments: 2,
