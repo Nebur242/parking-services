@@ -1,4 +1,4 @@
 export class FilterDto {
-	stage: string;
+	stage?: string;
 	available?: boolean;
 }

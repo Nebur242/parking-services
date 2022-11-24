@@ -1,6 +1,8 @@
 import httpStatus from 'http-status';
 import { ApiError } from '../../utils/ApiError';
 import bookingService from '../bookings/booking.service';
+import { Booking } from '../bookings/models/booking.model';
+import { Stage } from '../stages/models/stage.model';
 import stagesService from '../stages/stages.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { FilterDto } from './dto/filter.dto';
@@ -23,7 +25,7 @@ const findOne = async (id: string) => {
 	return place;
 };
 
-const findAll = (filter: FilterDto | {}) => {
+const findAll = (filter: FilterDto = {}) => {
 	return Place.find(filter).populate('stage');
 };
 
@@ -69,6 +71,40 @@ const placeStats = async (id: string) => {
 	}, []);
 };
 
+const getPlaceBookings = async (id: string) => {
+	const bookings = await bookingService.findAll({
+		place: id,
+	});
+	return bookings;
+};
+
+const getParkingPlaceStats = async () => {
+	const [allPlaces, bookings] = await Promise.all([
+		findAll(),
+		bookingService.findAll(),
+	]);
+	const totalPlaces = allPlaces.length;
+	const allBookings = bookings.length;
+
+	const places = await Promise.all(
+		allPlaces.map(async (place) => {
+			const bks = await getPlaceBookings(place._id.toString());
+			return {
+				place,
+				count: bks.length,
+			};
+		})
+	);
+
+	return {
+		places,
+		total: {
+			bookings: allBookings,
+			places: totalPlaces,
+		},
+	};
+};
+
 export default {
 	createPlace,
 	updatePlace,
@@ -76,4 +112,5 @@ export default {
 	findAll,
 	findOne,
 	placeStats,
+	getParkingPlaceStats,
 };

@@ -52,6 +52,10 @@ const placeStats = catchAsync(
 	}
 );
 
+const getParkingPlaceStats = catchAsync((req: Request, _res: Response) => {
+	return placesService.getParkingPlaceStats();
+});
+
 export default {
 	create,
 	update,
@@ -59,4 +63,5 @@ export default {
 	findOne,
 	delete: deletePlace,
 	placeStats,
+	getParkingPlaceStats,
 };

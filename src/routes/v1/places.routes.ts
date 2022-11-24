@@ -16,6 +16,8 @@ router
 		placesController.create
 	);
 
+router.get('/statistics', placesController.getParkingPlaceStats);
+
 router
 	.route('/:id')
 	.get(validate(validators.findOne), placesController.findOne)
@@ -28,8 +30,7 @@ router
 		auth([Roles.ADMIN]),
 		validate(validators.findOne),
 		placesController.delete
-	);
-
-router.get('/:id/stats', placesController.placeStats);
+	)
+	.get(placesController.placeStats);
 
 export default router;

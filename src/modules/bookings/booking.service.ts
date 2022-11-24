@@ -49,7 +49,7 @@ const createBooking = async (
 		.populate('user');
 };
 
-const findAll = (filter: FilterDto) => {
+const findAll = (filter: FilterDto = {}) => {
 	return Booking.find(filter || {})
 		.populate({
 			path: 'place',
