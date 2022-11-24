@@ -9,7 +9,7 @@ import passport from 'passport';
 import { jwtStrategy } from './config/passport';
 import cors from 'cors';
 
-function bootstrap(app: express.Express) {
+function bootstrap(app: express.Application) {
 	const globalPrefix = '/api';
 	const defaultVersion = 'v1';
 	//Request logger
@@ -18,7 +18,11 @@ function bootstrap(app: express.Express) {
 
 	// set security HTTP headers
 	app.use(helmet());
-	app.use(cors());
+	app.use(
+		cors({
+			origin: 'http://localhost:3000',
+		})
+	);
 
 	app.use(express.json());
 
