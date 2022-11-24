@@ -30,7 +30,8 @@ router
 		auth([Roles.ADMIN]),
 		validate(validators.findOne),
 		placesController.delete
-	)
-	.get(placesController.placeStats);
+	);
+
+router.get('/:id/statistics', placesController.placeStats);
 
 export default router;
